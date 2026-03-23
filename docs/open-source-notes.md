@@ -1,19 +1,17 @@
 # Open Source Notes
 
-This repository is the public-safe extraction layer.
+This repository is the lightweight public package.
 
 Included:
 
-- sanitized viewer
+- reusable viewer
 - minimal skill instructions
 - public sample data
 - demo and README
 
 Excluded:
 
-- private novel projects
-- personal paths
-- internal writing workflows
-- private prompt residue
-- Obsidian-bound data pipelines
-
+- full writing systems
+- local machine paths
+- internal project residue
+- heavy tool-specific pipelines

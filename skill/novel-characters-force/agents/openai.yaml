@@ -1,0 +1,4 @@
+interface:
+  display_name: "Novel Characters Force"
+  short_description: "Turn novel notes into a small static character graph"
+  default_prompt: "Use $novel-characters-force to compress a novel into a lightweight static HTML character relationship graph."

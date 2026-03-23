@@ -38,6 +38,9 @@ Write four files into the target output folder:
 - `graph.js`
 - `graph-data.js`
 
+The final output folder should be standalone.
+Do not leave repository-only relative paths like `../skill/...` in exported results.
+
 Reuse the public viewer from:
 
 - `assets/viewer/index.html`
@@ -47,6 +50,12 @@ Reuse the public viewer from:
 If you need to scaffold a runnable folder quickly, use:
 
 - `scripts/scaffold_demo.sh`
+
+Recommended flow:
+
+1. scaffold a runnable folder
+2. generate a small `graph-data.js`
+3. replace the scaffolded `graph-data.js`
 
 The graph data file must assign to:
 
@@ -75,6 +84,13 @@ Prefer this small node shape:
 - `summary`
 - `relationsNote`
 
+Prefer top-level groups in this shape:
+
+- `{ id, label }`
+
+When top-level `groups` is present, node `groups` should use those `id` values.
+Keep `weight` in the `1-5` range.
+
 Prefer this small link shape:
 
 - `from`
@@ -87,8 +103,9 @@ Prefer this small link shape:
 1. Start from natural-language source material.
 2. Compress aggressively.
 3. Prefer 6-12 core characters in v1.
-4. Keep only relationships that help a reader quickly understand the cast.
-5. If the source is too large, drop minor nodes before adding more fields.
+4. Prefer roughly 8-20 links in v1.
+5. Keep only relationships that help a reader quickly understand the cast.
+6. If the source is too large, drop minor nodes before adding more fields.
 
 ## Interaction Rules
 

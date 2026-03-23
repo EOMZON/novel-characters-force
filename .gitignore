@@ -1,2 +1,4 @@
 .DS_Store
-
+demo/*.png
+docs/demo-verify-*.png
+out*/

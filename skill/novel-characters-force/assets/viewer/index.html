@@ -23,11 +23,11 @@
 
       <section class="controls">
         <label class="control">
-          <span>Branch</span>
+          <span>分组</span>
           <select id="group-filter"></select>
         </label>
         <label class="control">
-          <span>Spread</span>
+          <span>扩散</span>
           <input id="spread-range" type="range" min="30" max="100" value="82" />
         </label>
       </section>
@@ -36,21 +36,21 @@
         <div class="canvas-wrap">
           <svg id="graph" class="graph" viewBox="0 0 1200 760" aria-label="character graph"></svg>
           <p class="canvas-note">
-            Node size follows narrative importance. Click a node to inspect its role and relation summary.
+            节点大小反映人物重要度。点击人物可查看角色定位与关系摘要。
           </p>
         </div>
 
         <aside id="detail" class="detail detail--empty">
-          <p class="detail-empty">Select a character</p>
+          <p class="detail-empty">选择一个人物</p>
           <div class="detail-body">
             <h2 id="detail-name" class="detail-name"></h2>
             <p id="detail-role" class="detail-role"></p>
             <section>
-              <h2>Summary</h2>
+              <h2>简介</h2>
               <div id="detail-summary" class="detail-copy"></div>
             </section>
             <section>
-              <h2>Relations</h2>
+              <h2>关系</h2>
               <div id="detail-relations" class="detail-copy"></div>
             </section>
           </div>

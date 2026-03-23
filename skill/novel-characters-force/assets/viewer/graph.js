@@ -29,9 +29,21 @@
     weight: typeof link.weight === "number" ? link.weight : 3
   }));
 
+  function nodeGroups(node) {
+    if (Array.isArray(node.groups)) return node.groups.filter(Boolean);
+    if (typeof node.group === "string" && node.group) return [node.group];
+    return [];
+  }
+
   const nodeById = new Map(nodes.map((node) => [node.id, node]));
-  const groups = Array.isArray(graphData.groups) ? graphData.groups : [];
-  const groupOptions = [{ id: "all", label: "All branches" }, ...groups];
+  const groups =
+    Array.isArray(graphData.groups) && graphData.groups.length
+      ? graphData.groups
+      : [...new Set(nodes.flatMap((node) => nodeGroups(node)))].map((groupId) => ({
+          id: groupId,
+          label: groupId
+        }));
+  const groupOptions = [{ id: "all", label: "全部分组" }, ...groups];
   let selectedNodeId = null;
   let activeGroup = "all";
   let spread = Number(spreadRange?.value || 82) / 100;
@@ -46,7 +58,7 @@
     const list = Array.isArray(items) ? items : [];
     if (!list.length) {
       const p = document.createElement("p");
-      p.textContent = "No content";
+      p.textContent = "暂无内容";
       container.appendChild(p);
       return;
     }
@@ -67,12 +79,6 @@
     if (detailSummary) addParagraphs(detailSummary, node.summary || []);
     if (detailRelations) addParagraphs(detailRelations, node.relationsNote || []);
     render();
-  }
-
-  function nodeGroups(node) {
-    if (Array.isArray(node.groups)) return node.groups.filter(Boolean);
-    if (typeof node.group === "string" && node.group) return [node.group];
-    return [];
   }
 
   function buildGroupOptions() {
@@ -248,14 +254,21 @@
       group.appendChild(text);
 
       let pointerId = null;
+      let pointerMoved = false;
+      let pointerStart = null;
       group.addEventListener("pointerdown", (event) => {
         pointerId = event.pointerId;
         node.dragging = true;
+        pointerMoved = false;
+        pointerStart = { x: event.clientX, y: event.clientY };
         group.classList.add("node--dragging");
         group.setPointerCapture(pointerId);
       });
       group.addEventListener("pointermove", (event) => {
         if (!node.dragging) return;
+        if (pointerStart && Math.hypot(event.clientX - pointerStart.x, event.clientY - pointerStart.y) > 4) {
+          pointerMoved = true;
+        }
         const pt = svg.createSVGPoint();
         pt.x = event.clientX;
         pt.y = event.clientY;
@@ -269,9 +282,25 @@
       });
       group.addEventListener("pointerup", () => {
         node.dragging = false;
+        if (pointerId !== null && group.hasPointerCapture(pointerId)) {
+          group.releasePointerCapture(pointerId);
+        }
+        pointerId = null;
+        pointerStart = null;
         group.classList.remove("node--dragging");
       });
-      group.addEventListener("click", () => {
+      group.addEventListener("pointercancel", () => {
+        node.dragging = false;
+        pointerId = null;
+        pointerStart = null;
+        group.classList.remove("node--dragging");
+      });
+      group.addEventListener("click", (event) => {
+        if (pointerMoved) {
+          pointerMoved = false;
+          event.preventDefault();
+          return;
+        }
         showDetail(node);
       });
 

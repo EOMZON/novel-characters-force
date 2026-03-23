@@ -8,12 +8,17 @@ The public version of this skill uses a small graph schema on purpose.
 window.charactersForceGraph = {
   title: "Dream of the Red Chamber",
   subtitle: "Optional short context.",
-  hint: "Optional viewer hint.",
-  meta: ["Static HTML", "File-safe data"],
+  groups: [
+    { id: "core", label: "Core line" },
+    { id: "jia", label: "Jia household" }
+  ],
   nodes: [],
   links: []
 };
 ```
+
+`groups` is recommended when you want readable filter labels.
+If omitted, the viewer will infer group options from node `groups`.
 
 ## Node
 
@@ -24,8 +29,7 @@ window.charactersForceGraph = {
   shortLabel: "Baoyu",
   role: "Central protagonist",
   weight: 5,
-  primary: true,
-  groups: ["Jia household", "Inner circle"],
+  groups: ["core", "jia"],
   summary: ["One or two short lines."],
   relationsNote: ["Optional extra notes."]
 }
@@ -45,11 +49,20 @@ window.charactersForceGraph = {
 ## Practical Guidance
 
 - Prefer 6-12 nodes for the first pass.
+- Prefer 8-20 links for the first pass.
 - Keep labels human-readable.
 - Use `weight` to express importance, not moral judgment.
+- Keep `weight` in the `1-5` range.
 - Use `groups` for factions, branches, or side clusters.
 - Keep `summary` short enough to read in a side panel.
 - Keep links focused on relationships a reader can recognize quickly.
+
+## Data Integrity Checks
+
+- `id` must be unique across nodes.
+- `links.from` and `links.to` must point to existing node ids.
+- If top-level `groups` exists, each `node.groups` value should match one group `id`.
+- Prefer trimming nodes before inventing extra schema fields.
 
 ## Avoid In V1
 
@@ -58,4 +71,3 @@ window.charactersForceGraph = {
 - timeline payloads
 - worldbuilding payloads
 - chapter databases
-
