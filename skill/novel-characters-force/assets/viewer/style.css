@@ -1,0 +1,286 @@
+:root {
+  --bg: #f3f1ec;
+  --panel: #fbfaf7;
+  --ink: #111111;
+  --muted: #65625c;
+  --line: #d8d4cc;
+  --soft: #ece9e2;
+  --mono: "SF Mono", "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+  --sans: "Helvetica Neue", "PingFang SC", "Noto Sans SC", Arial, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+}
+
+body {
+  padding: 24px;
+}
+
+.page {
+  max-width: 1480px;
+  margin: 0 auto;
+}
+
+.hero {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: flex-start;
+  padding: 20px 4px 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  font: 11px/1.2 var(--mono);
+  letter-spacing: 0.22em;
+  color: var(--muted);
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(30px, 4vw, 54px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+}
+
+.subtitle {
+  margin: 10px 0 0;
+  max-width: 720px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+  max-width: 380px;
+}
+
+.hero-meta span,
+.control span:first-child {
+  font: 11px/1.2 var(--mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.hero-meta span {
+  border: 1px solid var(--line);
+  padding: 8px 10px;
+  background: var(--panel);
+}
+
+.controls {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 18px 4px 12px;
+}
+
+.control {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+select,
+input[type="range"] {
+  accent-color: var(--ink);
+}
+
+select {
+  min-width: 220px;
+  padding: 10px 12px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  color: var(--ink);
+}
+
+input[type="range"] {
+  width: 180px;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 18px;
+  align-items: stretch;
+}
+
+.canvas-wrap,
+.detail {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  min-height: 760px;
+}
+
+.canvas-wrap {
+  position: relative;
+  overflow: hidden;
+}
+
+.graph {
+  display: block;
+  width: 100%;
+  height: 760px;
+  background:
+    radial-gradient(circle at top, rgba(17, 17, 17, 0.02), transparent 45%),
+    linear-gradient(180deg, #fbfaf7, #f1eee8);
+}
+
+.canvas-note {
+  position: absolute;
+  left: 18px;
+  bottom: 14px;
+  max-width: 360px;
+  margin: 0;
+  padding: 10px 12px;
+  background: rgba(251, 250, 247, 0.92);
+  border: 1px solid var(--line);
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.detail {
+  padding: 22px 20px;
+}
+
+.detail--empty .detail-body {
+  display: none;
+}
+
+.detail-empty {
+  margin: 0;
+  color: var(--muted);
+  font: 12px/1.5 var(--mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.detail-body section + section {
+  margin-top: 22px;
+}
+
+.detail-name {
+  margin: 0 0 8px;
+  font-size: 28px;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+
+.detail-role {
+  margin: 0 0 24px;
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.detail h2 {
+  margin: 0 0 10px;
+  font: 11px/1.2 var(--mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.detail-copy p {
+  margin: 0 0 10px;
+  line-height: 1.7;
+  font-size: 14px;
+}
+
+.edge {
+  stroke: #c7c1b6;
+  stroke-linecap: round;
+  fill: none;
+}
+
+.edge--active {
+  stroke: #111111;
+}
+
+.edge-label {
+  font-size: 10px;
+  fill: #6a665f;
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+
+.edge-label--active {
+  fill: #111111;
+}
+
+.node {
+  cursor: grab;
+}
+
+.node--dragging {
+  cursor: grabbing;
+}
+
+.node circle {
+  fill: #faf9f5;
+  stroke: #111111;
+  stroke-width: 1.2;
+  transition: stroke-width 120ms ease, transform 120ms ease, fill 120ms ease;
+}
+
+.node text {
+  fill: #111111;
+  font-size: 11px;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  pointer-events: none;
+}
+
+.node--selected circle,
+.node:hover circle {
+  stroke-width: 2.2;
+  fill: #ffffff;
+}
+
+@media (max-width: 1100px) {
+  body {
+    padding: 12px;
+  }
+
+  .board {
+    grid-template-columns: 1fr;
+  }
+
+  .canvas-wrap,
+  .detail {
+    min-height: auto;
+  }
+
+  .graph {
+    height: 70vh;
+  }
+
+  .hero,
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-meta {
+    justify-content: flex-start;
+    max-width: none;
+  }
+}

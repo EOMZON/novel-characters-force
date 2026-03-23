@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Novel Characters Force</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">NOVEL CHARACTERS FORCE</p>
+          <h1 id="page-title">人物关系图</h1>
+          <p id="page-subtitle" class="subtitle"></p>
+        </div>
+        <div class="hero-meta">
+          <span>可拖拽</span>
+          <span>可筛选</span>
+          <span>按主次分级</span>
+        </div>
+      </header>
+
+      <section class="controls">
+        <label class="control">
+          <span>Branch</span>
+          <select id="group-filter"></select>
+        </label>
+        <label class="control">
+          <span>Spread</span>
+          <input id="spread-range" type="range" min="30" max="100" value="82" />
+        </label>
+      </section>
+
+      <section class="board">
+        <div class="canvas-wrap">
+          <svg id="graph" class="graph" viewBox="0 0 1200 760" aria-label="character graph"></svg>
+          <p class="canvas-note">
+            Node size follows narrative importance. Click a node to inspect its role and relation summary.
+          </p>
+        </div>
+
+        <aside id="detail" class="detail detail--empty">
+          <p class="detail-empty">Select a character</p>
+          <div class="detail-body">
+            <h2 id="detail-name" class="detail-name"></h2>
+            <p id="detail-role" class="detail-role"></p>
+            <section>
+              <h2>Summary</h2>
+              <div id="detail-summary" class="detail-copy"></div>
+            </section>
+            <section>
+              <h2>Relations</h2>
+              <div id="detail-relations" class="detail-copy"></div>
+            </section>
+          </div>
+        </aside>
+      </section>
+    </main>
+
+    <script src="./graph-data.js"></script>
+    <script src="./graph.js"></script>
+  </body>
+</html>

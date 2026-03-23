@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Novel Characters Force Demo</title>
+    <link rel="stylesheet" href="../skill/novel-characters-force/assets/viewer/style.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">OPEN SOURCE DEMO</p>
+          <h1 id="page-title">Novel Characters Force</h1>
+          <p id="page-subtitle" class="subtitle">
+            A public-safe demo built from <code>红楼梦</code>. This page exists to show the exact effect the repository is shipping.
+          </p>
+        </div>
+        <div class="hero-meta">
+          <span>Public-safe example</span>
+          <span>Standalone HTML graph</span>
+          <span>Open-source skill</span>
+        </div>
+      </header>
+      <section class="controls">
+        <label class="control">
+          <span>Branch</span>
+          <select id="group-filter"></select>
+        </label>
+        <label class="control">
+          <span>Spread</span>
+          <input id="spread-range" type="range" min="30" max="100" value="82" />
+        </label>
+      </section>
+      <section class="board">
+        <div class="canvas-wrap">
+          <svg id="graph" class="graph" viewBox="0 0 1200 760" aria-label="character graph"></svg>
+          <p class="canvas-note">
+            This demo is intentionally compact. It shows the core triangle, elder authority, and household power lines without requiring a full writing system.
+          </p>
+        </div>
+        <aside id="detail" class="detail detail--empty">
+          <p class="detail-empty">Select a character</p>
+          <div class="detail-body">
+            <h2 id="detail-name" class="detail-name"></h2>
+            <p id="detail-role" class="detail-role"></p>
+            <section>
+              <h2>Summary</h2>
+              <div id="detail-summary" class="detail-copy"></div>
+            </section>
+            <section>
+              <h2>Relations</h2>
+              <div id="detail-relations" class="detail-copy"></div>
+            </section>
+          </div>
+        </aside>
+      </section>
+    </main>
+    <script src="../skill/novel-characters-force/assets/examples/hongloumeng.graph-data.js"></script>
+    <script src="../skill/novel-characters-force/assets/viewer/graph.js"></script>
+  </body>
+</html>
