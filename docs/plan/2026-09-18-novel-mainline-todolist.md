@@ -8,7 +8,7 @@
 main = 670792cf23ce87d1987f51c16d32b746e92feaf9
 test = 012c18f06ee364c48c9b4ae1d0a62079680be1e2
 active feature = feat/zero-friction-import-review-20260918
-feature head = 635440cfaf61230986a7dd8e2071e2fae447a41e
+product code boundary = b89a0108f38f16decc3f4338c846bbb76f28cf86\nfeature HEAD = 执行时 live readback（docs/verification/handoff 更新会继续推进）
 ```
 
 ## P0 — Zero-friction Import + Review
@@ -94,7 +94,7 @@ Paste / TXT / MD
 
 已完成：
 
-- [x] feature tree readback：10 commits / 10 changed files
+- [x] feature tree readback：product coherent set + docs 均已读回；执行 integration 时重新 compare exact HEAD
 - [x] `domain.js` node --check
 - [x] `providers.js` node --check
 - [x] `workbench.js` node --check
