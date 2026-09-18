@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Novel Characters Force Preview</title>
+  <link rel="stylesheet" href="../skill/novel-characters-force/assets/viewer/style.css" />
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">REVIEWED GRAPH PREVIEW</p>
+        <h1 id="page-title">人物关系图</h1>
+        <p id="page-subtitle" class="subtitle"></p>
+      </div>
+      <div class="hero-meta">
+        <span>Reviewed candidate</span>
+        <span>Existing renderer</span>
+        <span>Local preview</span>
+      </div>
+    </header>
+    <section class="controls">
+      <label class="control"><span>分组</span><select id="group-filter"></select></label>
+      <label class="control"><span>扩散</span><input id="spread-range" type="range" min="30" max="100" value="82" /></label>
+    </section>
+    <section class="board">
+      <div class="canvas-wrap">
+        <svg id="graph" class="graph" viewBox="0 0 1200 760" aria-label="character graph"></svg>
+        <p class="canvas-note">预览只消费校对后的 normalized graph；原始小说文本不会进入 renderer。</p>
+      </div>
+      <aside id="detail" class="detail detail--empty">
+        <p class="detail-empty">选择一个人物</p>
+        <div class="detail-body">
+          <h2 id="detail-name" class="detail-name"></h2>
+          <p id="detail-role" class="detail-role"></p>
+          <section><h2>简介</h2><div id="detail-summary" class="detail-copy"></div></section>
+          <section><h2>关系</h2><div id="detail-relations" class="detail-copy"></div></section>
+        </div>
+      </aside>
+    </section>
+  </main>
+  <script>
+    (function () {
+      try {
+        var raw = window.location.hash ? decodeURIComponent(window.location.hash.slice(1)) : "";
+        if (!raw) throw new Error("preview data missing");
+        window.charactersForceGraph = JSON.parse(raw);
+      } catch (error) {
+        document.body.innerHTML = "<main style='padding:24px;font-family:sans-serif'>无法读取预览数据：" + String(error.message || error) + "</main>";
+      }
+    })();
+  </script>
+  <script src="../skill/novel-characters-force/assets/viewer/graph.js"></script>
+</body>
+</html>

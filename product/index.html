@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Novel Characters Force · Import Review</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">NOVEL CHARACTERS FORCE · P0</p>
+        <h1>把小说文本变成可校对的人物关系图</h1>
+        <p class="lead">本地优先。先处理 Paste / TXT / Markdown，不在浏览器保存模型 API Key，不重写现有 force viewer。</p>
+      </div>
+      <div class="status-pills">
+        <span>Local-first</span>
+        <span>No browser API key</span>
+        <span>Existing viewer reused</span>
+      </div>
+    </header>
+
+    <section class="step-grid">
+      <article class="step-card">
+        <div class="step-head">
+          <span class="step-index">01</span>
+          <div><h2>输入文本</h2><p>粘贴正文，或选择 TXT / Markdown。</p></div>
+        </div>
+        <label class="field">
+          <span>作品标题</span>
+          <input id="source-title" type="text" placeholder="例如：我的群像小说" />
+        </label>
+        <label class="field">
+          <span>小说文本</span>
+          <textarea id="source-text" rows="14" placeholder="粘贴简介、若干章节或人物密集片段。P0 建议控制在 12,000 字符以内。"></textarea>
+        </label>
+        <div class="row">
+          <label class="file-button">选择 TXT / MD<input id="source-file" type="file" accept=".txt,.md,text/plain,text/markdown" /></label>
+          <button id="prepare-prompt" class="button button--primary" type="button">生成抽取提示词</button>
+        </div>
+        <p id="source-meta" class="meta">尚未输入文本</p>
+      </article>
+
+      <article class="step-card">
+        <div class="step-head">
+          <span class="step-index">02</span>
+          <div><h2>抽取候选并校对</h2><p>当前使用 Agent Bridge：复制提示词给你选择的 Agent，再把 JSON 结果粘贴回来。</p></div>
+        </div>
+        <label class="field">
+          <span>Agent 提示词</span>
+          <textarea id="agent-prompt" rows="10" readonly placeholder="先完成第 1 步"></textarea>
+        </label>
+        <div class="row">
+          <button id="copy-prompt" class="button" type="button">复制提示词</button>
+          <button id="load-example" class="button button--ghost" type="button">载入公开示例候选</button>
+        </div>
+        <label class="field">
+          <span>Agent 返回的 Candidate JSON</span>
+          <textarea id="candidate-json" rows="10" placeholder="粘贴 JSON。不要包含私人凭据。"></textarea>
+        </label>
+        <button id="import-candidate" class="button button--primary" type="button">导入候选</button>
+
+        <div id="review-empty" class="empty-state">导入候选后，这里会出现人物与关系校对。</div>
+        <div id="review-panel" class="review-panel" hidden>
+          <section>
+            <div class="section-title"><h3>人物</h3><span id="character-count" class="count"></span></div>
+            <div id="character-list" class="review-list"></div>
+          </section>
+          <section>
+            <div class="section-title"><h3>关系</h3><span id="relation-count" class="count"></span></div>
+            <div id="relation-list" class="review-list"></div>
+          </section>
+        </div>
+      </article>
+
+      <article class="step-card step-card--wide">
+        <div class="step-head">
+          <span class="step-index">03</span>
+          <div><h2>生成关系图</h2><p>校对后的 Candidate 会被归一化，再交给现有 force viewer。UI 不直接拼模型响应。</p></div>
+        </div>
+        <div class="row row--spread">
+          <div>
+            <p id="graph-summary" class="graph-summary">尚未生成图数据</p>
+            <p id="graph-warning" class="meta"></p>
+          </div>
+          <div class="row">
+            <button id="build-graph" class="button button--primary" type="button" disabled>生成 / 刷新预览</button>
+            <button id="download-data" class="button" type="button" disabled>下载 graph-data.js</button>
+            <button id="copy-data" class="button button--ghost" type="button" disabled>复制 graph-data.js</button>
+          </div>
+        </div>
+        <div class="preview-shell">
+          <iframe id="graph-preview" title="character graph preview"></iframe>
+        </div>
+      </article>
+    </section>
+
+    <footer class="footer">
+      <p id="app-status">Ready · 所有文本先停留在当前浏览器页面。</p>
+      <a href="../docs/handoff/2026-09-18-novel-p0-import-review-execution-index.md">P0 Handoff</a>
+    </footer>
+  </main>
+  <script src="./domain.js"></script>
+  <script src="./providers.js"></script>
+  <script src="./workbench.js"></script>
+</body>
+</html>
